@@ -53,8 +53,6 @@ server <- function(input, output) {
   
   final<- reactive(subset(final_df, Year == input$year))
   pp <- reactive(input$pop)
-  # final_df <- final_df[is.null(final_df)==F,]
-  # final_df$id <- 1:nrow(mtc)
   output$P1 <- renderPlotly({
     plt <- ggplot(final(),aes(y=Fertility.Rate, x=Life.Expectancy))
     plt <- plt + geom_point(aes(colour = Region, text = paste("Region: ", Region, "</br> Country Name: ", Country.Name, 
