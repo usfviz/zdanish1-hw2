@@ -40,7 +40,7 @@ ui <- fluidPage(
   headerPanel('Gapminder Plot'),
   sidebarLayout(
     sidebarPanel(
-      sliderInput("pop", "Population:", 0, 1, 0.8, ticks = F)
+      sliderInput("pop", "Population:", 1, 8, 4, ticks = F)
     ),
     mainPanel(
       plotlyOutput("P1", width = "100%"),
@@ -57,8 +57,8 @@ server <- function(input, output) {
     plt <- ggplot(final(),aes(y=Fertility.Rate, x=Life.Expectancy))
     plt <- plt + geom_point(aes(colour = Region, text = paste("Region: ", Region, "</br> Country Name: ", Country.Name, 
                                                               "</br> Population: ", Population, "</br> Life Expectancy: ", 
-                                                              round(Life.Expectancy,3), "</br> Fertility Rate: ", round(Fertility.Rate,3)), size = Population^pp())) 
-    plt <- plt + scale_size(guide = 'none') + xlab('Life Expectancy') 
+                                                              round(Life.Expectancy,3), "</br> Fertility Rate: ", round(Fertility.Rate,3)), size = Population)) 
+    plt <- plt + scale_size(range = c(1,pp()),guide = 'none') + xlab('Life Expectancy') 
     plt <- plt + scale_x_continuous(breaks = seq(10,90,10), limits = c(10,90))+ scale_y_continuous(breaks = seq(0,9,1), limits = c(0,9))
     plt <- plt + ylab('Fertility Rate') + theme_bw() + theme(legend.title = element_blank())
     plt <- plt + scale_color_manual(values = c('#1b9e77','#d95f02','#7570b3','#e7298a','#66a61e','#e6ab02','#a6761d'))
